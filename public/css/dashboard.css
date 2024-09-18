@@ -1,0 +1,58 @@
+body {
+    font-size: 0.9rem;
+}
+
+.nav-link {
+    font-weight: 500;
+    color: #333;
+}
+
+.nav-link .bi {
+    margin-right: 4px;
+}
+
+.nav-link.active {
+    background-color: #007bff;
+    color: white;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+.full-width-main {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar {
+    height: 100vh;
+    padding-top: 20px;
+    background-color: #c8cdd5;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-weight: bold;
+}
+
+.sidebar .nav-item {
+    margin-bottom: 1rem;
+}
+
+.container-fluid {
+    margin-top: 20px;
+}
+.h2{
+    background-color: #c8cdd5;
+    height: 70px;   
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+}

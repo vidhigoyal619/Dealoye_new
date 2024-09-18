@@ -1,0 +1,21 @@
+<div class="container mt-5">
+    <h2>Your Requirements</h2>
+    <div class="row">
+        {{#if requirements.length}}
+            {{#each requirements}}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.title}}</h5>
+                        <p class="card-text">{{this.description}}</p>
+                        <p class="card-text"><strong>Posted on:</strong> {{this.createdAt}}</p>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+        {{else}}
+            <p>You have no active requirements.</p>
+        {{/if}}
+    </div>
+</div>
+

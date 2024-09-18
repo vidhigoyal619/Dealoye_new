@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+    /* Custom CSS to enhance the colors and styles */
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    .about-header {
+      background-color: #f8f9fa;
+      padding: 60px 0;
+    }
+
+    .about-header h2 {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #007bff;
+    }
+
+    .about-header p {
+      font-size: 1.25rem;
+      color: #6c757d;
+    }
+
+    .key-features h3 {
+      color: #007bff;
+    }
+
+    .card {
+      border: none;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card-title {
+      color: #007bff;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+   <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <!-- Project name on the left -->
+    <a class="navbar-brand text-white" href="/">DealOye</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Add ms-auto to shift the links to the right -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Navigation Links -->
+        <li class="nav-item">
+          <a class="nav-link text-white active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/sell">Sell</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/buy">Buy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/requirements">Requirements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/wishlist">Wishlist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/signup">Signup</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<section class="about-header text-center">
+    <div class="container">
+      <h2>About DealOye</h2>
+      <p>At DealOye, we push boundaries, embrace the unknown, and foster a culture of continuous learning. Our platform connects students for secure buying and selling through intuitive features and reliable services.</p>
+    </div>
+  </section>
+
+  <!-- Key Features Section -->
+  <section class="key-features py-5">
+    <div class="container">
+      <div class="row text-center mb-4">
+        <div class="col">
+          <h3 class="h4 text-uppercase">Key Features</h3>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="card bg-light p-4">
+            <h4 class="card-title">User Authentication</h4>
+            <p class="card-text">The platform includes a login and signup system with OTP-based authentication for secure access.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card bg-light p-4">
+            <h4 class="card-title">Home Page</h4>
+            <p class="card-text">The home page displays featured products, with a search bar for finding specific items easily.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card bg-light p-4">
+            <h4 class="card-title">Buy Page</h4>
+            <p class="card-text">On the Buy page, students can browse items listed for sale, wishlist them, or contact sellers directly.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card bg-light p-4">
+            <h4 class="card-title">Sell Page</h4>
+            <p class="card-text">Users can manage items they’ve listed for sale, including options to update availability or remove items.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card bg-light p-4">
+            <h4 class="card-title">Requirements Page</h4>
+            <p class="card-text">This page lets users post requirements or browse others' requests and contact them to help fulfill needs.</p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card bg-light p-4">
+            <h4 class="card-title">Dashboard</h4>
+            <p class="card-text">The dashboard provides users with an overview of their wishlist, sales, and posted requirements.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+</body>
+</html>

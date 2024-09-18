@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Ad - DealOye</title>
+  <link rel="stylesheet" href="/css/postad.css">
+  <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark"></nav>
+  <div class="container-fluid">
+    <!-- Project name on the left -->
+    <a class="navbar-brand text-white" href="/">DealOye</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Add ms-auto to shift the links to the right -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Navigation Links -->
+        <li class="nav-item">
+          <a class="nav-link text-white active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/sell">Sell</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/buy">Buy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/requirements">Requirements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/wishlist">Wishlist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/signup">Signup</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+  <main>
+    <section class="container">
+      <h2>Post Your Ad</h2>
+      <form action="/postad" method="POST" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Product Name:</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="price">Expected Price:</label>
+          <input type="number" id="price" name="price" required>
+        </div>
+        <div class="form-group">
+          <label for="contact">Contact Details:</label>
+          <input type="text" id="contact" name="contact" required>
+        </div>
+        <div class="form-group">
+          <label for="condition">Condition:</label>
+          <input type="text" id="condition" name="condition" required>
+        </div>
+        <div class="form-group">
+          <label for="category">Category:</label>
+          <input type="text" id="category" name="category" required>
+        </div>
+        <div class="form-group">
+          <label for="brand">Brand (Optional):</label>
+          <input type="text" id="brand" name="brand" required>
+        </div>
+        <div class="form-group">
+          <label for="color">Color (Optional):</label>
+          <input type="text" id="color" name="color">
+        </div>
+        <div class="form-group">
+          <label for="images">Images (max 2):</label>
+          <input type="file" id="images" name="images" accept="image/*" multiple required>
+        </div>
+        <div class="form-group">
+          <label for="color">Featured (Optional):</label>
+          <input type="text" id="featured" name="featured">
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+    </section>
+  </main>
+  
+</body>
+
+</html>

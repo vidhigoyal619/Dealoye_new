@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealOye | Signup</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/login-signup.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/fontawesome.min.css" integrity="sha512-B46MVOJpI6RBsdcU307elYeStF2JKT87SsHZfRSkjVi4/iZ3912zXi45X5/CBr/GbCyLx6M1GQtTKYRd52Jxgw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+  <div class="container">
+    <div class="wrapper">
+      <div class="title"><span style="color:#fff;">Signup Form</span></div>
+      <form action="/signup" method="POST">
+        <input type="hidden" name="userId" value="{{ userId }}">
+        <div class="row">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Full Name" name="fullname" required>
+        </div>
+        <div class="row">
+          <i class="fas fa-envelope"></i>
+          <input type="email" placeholder="Email" name="email" required>
+        </div>
+        <div class="row">
+          <i class="fas fa-phone"></i>
+          <input type="tel" placeholder="Phone" name="phone" required>
+        </div>
+        <div class="row">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" name="password" required>
+        </div>
+        
+        <div class="row">
+  <i class="fas-solid fa-square-check"></i>
+  <input type="text" id="roleInput" placeholder="Type user/admin" name="role" required>
+  <i class="fa-solid fa-circle-info" id="infoIcon"></i>
+</div>
+
+<div id="roleInfoPopup" class="popup">
+  <div class="popup-content">
+    <span class="close">&times;</span>
+    <p>Please type either "user" or "admin" as your role. No other roles are accepted.</p>
+  </div>
+</div>
+
+       
+        <div class="row button">
+          <input type="submit" value="Signup">
+        </div>
+        <div class="login-link">Already a member? <a href="/login" style="color:rgb(3, 181, 86);">Login now</a></div>
+      </form>
+    </div>
+  </div>
+</body>
+
+<script>
+  
+  document.addEventListener("DOMContentLoaded", function () {
+  const roleInput = document.getElementById("roleInput"); // Input for role
+  const form = document.querySelector("form"); // The form
+
+  // Convert the role to lowercase when the user submits the form
+  form.addEventListener("submit", function (event) {
+    roleInput.value = roleInput.value.toLowerCase(); // Convert input value to lowercase
+  });
+
+  const infoIcon = document.getElementById("infoIcon"); // Info icon
+  const popup = document.getElementById("roleInfoPopup"); // Popup element
+  const closePopup = document.querySelector(".popup .close"); // Close button
+
+  // Show popup on info icon click
+  infoIcon.addEventListener("click", function () {
+    popup.style.display = "block"; // Show the popup
+  });
+
+  // Close the popup when the close button is clicked
+  closePopup.addEventListener("click", function () {
+    popup.style.display = "none"; // Hide the popup
+  });
+
+  // Close the popup if user clicks anywhere outside it
+  window.addEventListener("click", function (event) {
+    if (event.target === popup) {
+      popup.style.display = "none"; // Hide popup if clicked outside
+    }
+  });
+});
+
+
+</script>
+
+</html>

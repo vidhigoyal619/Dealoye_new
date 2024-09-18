@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DealOye | OTP Verification</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-image: url('https://images.unsplash.com/photo-1703969083653-da62f9ea70af?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+      }
+      :where(.container, form, .input-field, header) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+      .container {
+        background: #fff;
+        padding: 30px 65px;
+        border-radius: 12px;
+        row-gap: 20px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+      }
+      .container header {
+        height: 65px;
+        width: 65px;
+        background: #9b59b6;
+        color: #fff;
+        font-size: 2.5rem;
+        border-radius: 50%;
+      }
+      .container h4 {
+        font-size: 1.25rem;
+        color: #333;
+        font-weight: 500;
+      }
+      form .input-field {
+        flex-direction: row;
+        column-gap: 10px;
+      }
+      .input-field input {
+        height: 45px;
+        width: 42px;
+        border-radius: 6px;
+        outline: none;
+        font-size: 1.125rem;
+        text-align: center;
+        border: 1px solid #ddd;
+      }
+      .input-field input:focus {
+        box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+      }
+      .input-field input::-webkit-inner-spin-button,
+      .input-field input::-webkit-outer-spin-button {
+        display: none;
+      }
+      form button {
+        margin-top: 25px;
+        width: 100%;
+        color: #fff;
+        font-size: 1rem;
+        border: none;
+        padding: 9px 0;
+        cursor: pointer;
+        border-radius: 6px;
+        pointer-events: none;
+        background: #335eea;
+        transition: all 0.2s ease;
+      }
+      form button.active {
+        background: #335eea;
+        pointer-events: auto;
+      }
+      form button:hover {
+        background: #335eea;
+      }
+      @media screen and (max-width: 768px) {
+        .container h4 {
+          font-size: 15px;
+        }
+        form button {
+          font-size: 10px;
+          margin-top: 15px;
+        }
+        form {
+          padding: 10px 0px;
+        }
+        .container {
+          padding: 0 20px;
+        }
+      }
+    </style>
+    <!-- Boxicons CSS -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <i class="bx bxs-check-shield"></i>
+      </header>
+      <h4>Enter OTP Code</h4>
+      <form action="/otp" method="POST" onsubmit="handleFormSubmission(event)">
+        <input type="hidden" name="email" value="<%= email %>"/> <!-- Include hidden email field -->
+        <div class="input-field">
+          <input type="number" name="otp1" />
+          <input type="number" name="otp2" disabled />
+          <input type="number" name="otp3" disabled />
+          <input type="number" name="otp4" disabled />
+        </div>
+        <button type="submit">Verify OTP</button>
+      </form>
+    </div>
+
+    <script>
+      const inputs = document.querySelectorAll("input[name^='otp']"),
+        button = document.querySelector("button");
+
+      // iterate over all inputs
+      inputs.forEach((input, index1) => {
+        input.addEventListener("keyup", (e) => {
+          const currentInput = input,
+            nextInput = input.nextElementSibling,
+            prevInput = input.previousElementSibling;
+
+          if (currentInput.value.length > 1) {
+            currentInput.value = "";
+            return;
+          }
+
+          if (nextInput && nextInput.hasAttribute("disabled") && currentInput.value !== "") {
+            nextInput.removeAttribute("disabled");
+            nextInput.focus();
+          }
+
+          if (e.key === "Backspace") {
+            inputs.forEach((input, index2) => {
+              if (index1 <= index2 && prevInput) {
+                input.setAttribute("disabled", true);
+                input.value = "";
+                prevInput.focus();
+              }
+            });
+          }
+
+          if (!inputs[3].disabled && inputs[3].value !== "") {
+            button.classList.add("active");
+            return;
+          }
+          button.classList.remove("active");
+        });
+      });
+
+      window.addEventListener("load", () => inputs[0].focus());
+
+      function handleFormSubmission(event) {
+        event.preventDefault(); // Prevent default form submission behavior
+
+        // Get the form data
+        const formData = new FormData(event.target);
+
+        // Create an object to hold the form data
+        const formDataObject = {};
+        formData.forEach((value, key) => {
+          if (key.startsWith('otp')) {
+            // Combine OTP parts into a single value
+            formDataObject['otp'] = (formDataObject['otp'] || '') + value;
+          } else {
+            formDataObject[key] = value;
+          }
+        });
+
+        // Convert the form data object to JSON
+        const jsonData = JSON.stringify(formDataObject);
+
+        // Make an AJAX request to submit the form data
+        fetch('/otp', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: jsonData,
+        })
+        .then(response => {
+          if (response.ok) {
+            // Redirect to the appropriate dashboard based on role
+            window.location.href = '/'; // Adjust as needed
+          } else {
+            console.error('Error:', response.statusText);
+            alert('An error occurred. Please try again.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('An error occurred. Please try again.');
+        });
+      }
+    </script>
+  </body>
+</html>

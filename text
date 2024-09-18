@@ -1,0 +1,679 @@
+// // // {{!-- me ye chahti hu ki jo bhi user koi bhi item sell karne k liye iss form ka use kare uske sare products jo h wo sell page par appear ho niche diye gye format m jha humare prodcuts ka data jyda h toh jyda hi rhega. ui jesa diya h wesa hi chahiye. yha par inn sabhi products m wishlist ka button, show contact information ka button, product in stock ka button with drop down values like available, not available and last is delete button to delete the prodcut. so write me code for this. --}}
+
+// // // {{!--  jispe user click kare toh wishlist k db m add hojaye, --}}
+
+
+// // // app.post("/signup", async (req, res) => {
+// // //     try {
+// // //         const { fullname, email, phone, password, role } = req.body;
+
+// // //         const normalizedRole = role.toLowerCase(); // Convert role to lowercase
+
+// // //         // Generate OTP
+// // //         const otp = generateOTP();
+
+// // //         // Save user details including OTP
+// // //         const newUser = new UserDetails({ fullname, email, phone, password, role: normalizedRole, otp });
+// // //         await newUser.save();
+
+// // //         // Send OTP to user's email
+// // //         await sendOTPByEmail(email, otp);
+
+// // //         // Redirect to OTP verification page
+// // //         res.redirect(`/otp?userId=${newUser._id}`);
+// // //     } catch (error) {
+// // //         console.error("Error during signup:", error);
+// // //         res.status(500).send("Internal Server Error");
+// // //     }
+// // // });
+
+
+
+// // // app.post("/otp", async (req, res) => {
+// // //     try {
+// // //         const { email, otp } = req.body;
+
+// // //         console.log("Received OTP verification request:");
+// // //         console.log("Email:", email);
+// // //         console.log("OTP:", otp);
+
+// // //         // Validate and verify OTP as needed
+// // //         const user = await UserDetails.findOne({ email });
+// // //         if (!user) {
+// // //             console.log("User not found");
+// // //             return res.render("otp", { error: "User not found" });
+// // //         }
+
+// // //         if (user.otp !== otp) {
+// // //             console.log("Incorrect OTP");
+// // //             return res.render("otp", { error: "Invalid OTP" });
+// // //         }
+
+// // //         user.isEmailVerified = true;
+// // //         user.otp = undefined;
+// // //         await user.save();
+
+// // //         req.session.userId = user._id;
+// // //         req.session.role = user.role;
+
+// // //         if (user.role === 'admin') {
+// // //             res.redirect('/admin-dashboard');
+// // //         } else {
+// // //             res.redirect('/dashboard');
+// // //         }
+// // //     } catch (error) {
+// // //         console.error("Error during OTP verification:", error);
+// // //         res.status(500).send("Internal Server Error");
+// // //     }
+// // // });
+
+
+
+
+// // // app.post("/signup", async (req, res) => {
+// // //     try {
+// // //         const { fullname, email, phone, password } = req.body;
+
+// // //         // Store user details in the database
+// // //         const otp = generateOTP();
+// // //         const newUser = new UserDetails({ fullname, email, phone, password, otp });
+// // //         await newUser.save();
+
+// // //         // Send OTP to user's email
+// // //         await sendOTPByEmail(email, otp);
+
+// // //         // Redirect user to OTP verification page
+// // //         res.redirect(`/otp?userId=${newUser._id}`);
+// // //     } catch (error) {
+// // //         console.error("Error during signup:", error);
+// // //         res.status(500).send("Internal Server Error");
+// // //     }
+// // // });
+
+
+// // // // Handle OTP verification form submission
+// // // app.post("/otp", async (req, res) => {
+// // //     try {
+// // //         const { email, otp } = req.body;
+
+// // //         // Verify OTP (compare with stored OTP)
+// // //         const user = await UserDetails.findOne({ email });
+// // //         if (!user) {
+// // //             return res.render("otp", { error: "Invalid OTP" });
+// // //         }
+
+// // //         // Update user status to indicate email verification
+// // //         user.isEmailVerified = true;
+// // //         await user.save();
+
+// // //         // Set session variable
+// // //         req.session.isLoggedIn = true;
+
+// // //         // Redirect user to details form
+// // //         res.redirect(`/index`);
+// // //     } catch (error) {
+// // //         console.error("Error during OTP verification:", error);
+// // //         res.status(500).send("Internal Server Error");
+// // //     }
+// // // });
+
+
+
+
+// // // // Handle POST request to login endpoint
+// // // app.post("/login", async (req, res) => {
+// // //     try {
+// // //         const { email, password } = req.body;
+
+// // //         // Check if a user with the provided email exists in the database
+// // //         const user = await UserDetails.findOne({ email });
+
+// // //         // If user is not found, redirect back to login page with an error message
+// // //         if (!user) {
+// // //             return res.render("login", { error: "Invalid email or password." });
+// // //         }
+
+// // //         // Verify the password
+// // //         if (user.password !== password) {
+// // //             // If password is incorrect, redirect back to login page with an error message
+// // //             return res.render("login", { error: "Invalid email or password." });
+// // //         }
+
+// // //        // Set session variable
+// // //        req.session.isLoggedIn = true;
+// // //        req.session.userId = user._id;
+
+// // //         // If email and password are valid, redirect to dashboard or home page
+// // //         res.redirect("/"); // Change "/dashboard" to the appropriate route
+
+// // //     } catch (error) {
+// // //         console.error("Error during login:", error);
+// // //         res.status(500).send("Internal Server Error");
+// // //     }
+// // // });
+
+
+// // const express = require('express');
+// // // const exphbs  = require('express-handlebars');
+// // const mongoose = require('mongoose');
+// // const bodyParser = require('body-parser');
+// // const hbs = require('hbs');
+// // const nodemailer = require("nodemailer");
+// // const path = require('path');
+// // const dotenv = require('dotenv');
+// // const session = require('express-session');
+// // const MongoStore = require('connect-mongo');
+// // const multer = require('multer');
+// // const upload = multer({ dest: 'uploads/' });
+// // const UserDetails = require('./models/user');
+// // const ProductDetails = require('./models/product');
+// // const CartDetails = require('./models/cart');
+// // const Wishlist = require('./models/wishlist');
+// // const Requirement = require('./models/Requirement');
+// // const productRoutes = require('../routes/index');
+// // const featuredProductsRoute = require('../routes/featuredProducts');
+// // const cartRoutes = require('../routes/cart');
+// // const productRoute = require('../routes/product');
+// // const sellRoutes = require('../routes/sell');
+// // const WishlistRoutes = require('../routes/wishlist');
+// // const ContactRoutes = require('../routes/contact');
+// // const requirementsRoute = require('../routes/requirement');
+
+
+// // dotenv.config();
+// // console.log('Users route path:', path.resolve(__dirname, './routes/users'));
+// // const port = process.env.PORT || 3000;
+// // const DB = process.env.MONGO_URI;
+
+// // if (!DB) {
+// //     console.error('Error: MONGO_URI is not defined in .env file');
+// //     process.exit(1);
+// // }
+
+// // mongoose.connect(DB).then(() => {
+// //     console.log("Connection to MongoDB successful");
+// // }).catch((err) => {
+// //     console.log("MongoDB connection error:", err);
+// // });
+
+// // const app = express();
+// // const static_path = path.join(__dirname, "../public");
+// // const template_path = path.join(__dirname, "../templates/views");
+// // app.use('/node_modules', express.static(path.join(__dirname, '../node_modules')));
+
+// // app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+// // app.use('/uploads', express.static('uploads'));
+
+// // hbs.registerHelper('eq', function (a, b) {
+// //     return a === b;
+// //   });
+
+// // app.use(express.static(static_path));
+// // app.use(express.static(static_path, { 
+// //     setHeaders: (res, path, stat) => {
+// //         if (path.endsWith('.js')) {
+// //             res.set('Content-Type', 'text/javascript');
+// //         }
+// //     }
+// // }));
+// // app.use(bodyParser.urlencoded({ extended: true }));
+// // app.use(express.json());
+
+// // app.set("view engine", "hbs");
+// // app.set("views", template_path);
+// // // app.engine('hbs', exphbs.engine({ extname: 'hbs', defaultLayout: 'main', layoutsDir: path.join(__dirname, 'views/layouts') }));
+// // app.set('view engine', 'hbs');
+
+// // app.use(session({
+// //     secret: 'thisisdealoye', // Change this to a secure random key
+// //     resave: false,
+// //     saveUninitialized: false,
+// //     store: MongoStore.create({
+// //         mongoUrl: 'mongodb+srv://vidhigoyal619:qO7apOSxbnmT3SEI@cluster0.avt31no.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0'
+// //     }),
+// //     cookie: { secure: false } // Set to true if using HTTPS
+// // }));
+
+
+
+// // // ---------------------------routes------------------------------
+// // app.use('/', productRoutes);
+// // app.use("/",featuredProductsRoute);
+// // app.use('/', cartRoutes);
+// // app.use('/api', productRoute);
+// // app.use('/', sellRoutes);
+// // app.use('/', WishlistRoutes);
+// // app.use('/', ContactRoutes);
+// // app.use("/",requirementsRoute);
+
+
+// // app.get('/', (req, res) => {
+// //     res.render('index', { isLoggedIn: req.session.isLoggedIn });
+// // });
+
+// // app.get('/index', (req, res) => {
+// //     res.render('index', { isLoggedIn: req.session.isLoggedIn });
+// // });
+// // app.get("/about", (req, res) => {
+// //     res.render("about");
+// // });
+// // app.get("/contact", (req, res) => {
+// //     res.render("contact");
+// // });
+// // app.get("/services", (req, res) => {
+// //     res.render("contact");
+// // });
+// // app.get("/login", (req, res) => {
+// //     res.render("login");
+// // });
+// // app.get("/signup", (req, res) => {
+// //     res.render("signup");
+// // });
+// // app.get("/otp", (req, res) => {
+// //     res.render("otp");
+// // });
+// // app.get("/postad", (req, res)=>{
+// //     res.render("postad");
+// // });
+// // app.get("/products", (req,res)=>{
+// //     res.render("products");
+// // });
+// // app.get("/dashboard", (req,res)=>{
+// //     res.render("dashboard");
+// // });
+// // app.get("/cart", (req,res)=>{
+// //     res.render("cart");
+// // });
+// // app.get("/wishlist", (req,res)=>{
+// //     res.render("wishlist");
+// // });
+// // app.get("/requirements", (req,res)=>{
+// //     res.render("requirements");
+// // });
+// // app.get("/buy", (req,res)=>{
+// //     res.render("buy");
+// // });
+// // app.get("/sell", (req,res)=>{
+// //     res.render("sell");
+// // });
+// // app.get("/admin-dashboard", (req,res)=>{
+// //     res.render("admin-dashboard");
+// // })
+// // const transporter = nodemailer.createTransport({
+// //     service: "gmail",
+// //     port: 587,
+// //     auth: {
+// //         user: 'quoterandom4@gmail.com',
+// //         pass: 'yglkxfxdfkuvjtey'
+// //     },
+// // });
+
+// // // Function to send OTP email
+// // async function sendOTPByEmail(email, otp) {
+// //     try {
+// //         const info = await transporter.sendMail({
+// //             from: 'quoterandom4@gmail.com',
+// //             to: email,
+// //             subject: "OTP Verification",
+// //             text: `Your OTP for verification is: ${otp}`,
+// //             html: `<b>Your OTP for verification is: ${otp}</b>`,
+// //         });
+
+// //         console.log("Email sent: %s", info.messageId);
+// //     } catch (error) {
+// //         console.error("Error sending email:", error);
+// //         throw error;
+// //     }
+// // }
+
+// // // Function to generate random OTP
+// // function generateOTP() {
+// //     return Math.floor(1000 + Math.random() * 9000).toString();
+// // }
+
+// // // Handle signup form submission
+// // app.post("/signup", async (req, res) => {
+// //     try {
+// //         const { fullname, email, phone, password } = req.body;
+
+// //         // Store user details in the database
+// //         const otp = generateOTP();
+// //         const newUser = new UserDetails({ fullname, email, phone, password, otp });
+// //         await newUser.save();
+
+// //         // Send OTP to user's email
+// //         await sendOTPByEmail(email, otp);
+
+// //         // Redirect user to OTP verification page
+// //         res.redirect(`/otp?userId=${newUser._id}`);
+// //     } catch (error) {
+// //         console.error("Error during signup:", error);
+// //         res.status(500).send("Internal Server Error");
+// //     }
+// // });
+
+
+// // // Handle OTP verification form submission
+// // app.post("/otp", async (req, res) => {
+// //     try {
+// //         const { email, otp } = req.body;
+
+// //         // Verify OTP (compare with stored OTP)
+// //         const user = await UserDetails.findOne({ email });
+// //         if (!user) {
+// //             return res.render("otp", { error: "Invalid OTP" });
+// //         }
+
+// //         // Update user status to indicate email verification
+// //         user.isEmailVerified = true;
+// //         await user.save();
+
+// //         // Set session variable
+// //         req.session.isLoggedIn = true;
+
+// //         // Redirect user to details form
+// //         res.redirect(`/index`);
+// //     } catch (error) {
+// //         console.error("Error during OTP verification:", error);
+// //         res.status(500).send("Internal Server Error");
+// //     }
+// // });
+
+
+
+
+// // // Handle POST request to login endpoint
+// // app.post("/login", async (req, res) => {
+// //     try {
+// //         const { email, password } = req.body;
+
+// //         // Check if a user with the provided email exists in the database
+// //         const user = await UserDetails.findOne({ email });
+
+// //         // If user is not found, redirect back to login page with an error message
+// //         if (!user) {
+// //             return res.render("login", { error: "Invalid email or password." });
+// //         }
+
+// //         // Verify the password
+// //         if (user.password !== password) {
+// //             // If password is incorrect, redirect back to login page with an error message
+// //             return res.render("login", { error: "Invalid email or password." });
+// //         }
+
+// //        // Set session variable
+// //        req.session.isLoggedIn = true;
+// //        req.session.userId = user._id;
+
+// //         // If email and password are valid, redirect to dashboard or home page
+// //         res.redirect("/"); // Change "/dashboard" to the appropriate route
+
+// //     } catch (error) {
+// //         console.error("Error during login:", error);
+// //         res.status(500).send("Internal Server Error");
+// //     }
+// // });
+
+
+// // app.post('/postad', upload.array('images', 2), async (req, res) => {
+// //     try {
+// //         const { name, description, price, contact, condition, category, brand, color } = req.body;
+// //         const imageFiles = req.files.map(file => file.path);
+// //         const userId = req.session.userId; // Get the userId from the session
+
+// //         if (!userId) {
+// //             return res.status(401).send("Unauthorized: User is not logged in.");
+// //         }
+
+// //         const newProduct = new ProductDetails({
+// //             name,
+// //             description,
+// //             price,
+// //             contact,
+// //             condition,
+// //             category,
+// //             brand,
+// //             color,
+// //             images: imageFiles,
+// //             userId: userId // Pass the userId here
+// //         });
+
+// //         await newProduct.save();
+// //         res.redirect('/buy');
+// //     } catch (error) {
+// //         console.error("Error posting ad:", error);
+// //         res.status(500).send("Internal Server Error");
+// //     }
+// // });
+
+// // // app.get('/api/products', async (req, res) => {
+// // //     try {
+// // //         const products = await ProductDetails.find({});
+// // //         res.json(products); // Send the products as JSON
+// // //     } catch (error) {
+// // //         console.error("Error fetching products:", error);
+// // //         res.status(500).json({ error: "Internal Server Error" });
+// // //     }
+// // // });
+
+
+// // app.get('/api/products', async (req, res) => {
+// //     try {
+// //         const category = req.query.category || ''; // Get category from query string
+// //         const searchQuery = req.query.query || ''; // Get search query from query string
+
+// //         let filters = {};
+// //         if (category && category !== 'Any') {
+// //             filters.category = category;
+// //         }
+// //         if (searchQuery) {
+// //             filters.name = { $regex: new RegExp(searchQuery, "i") };
+// //         }
+
+// //         const products = await ProductDetails.find(filters);
+// //         res.json(products);
+// //     } catch (error) {
+// //         console.error("Error fetching products:", error);
+// //         res.status(500).json({ error: "Internal Server Error" });
+// //     }
+// // });
+
+
+// // app.get('/api/featured-products', async (req, res) => {
+// //     try {
+// //         const featuredProducts = await ProductDetails.find({ featured: true });
+// //         res.json(featuredProducts);
+// //     } catch (error) {
+// //         console.error("Error fetching featured products:", error);
+// //         res.status(500).send("Internal Server Error");
+// //     }
+// // });
+
+// // app.get('/search', async (req, res) => {
+// //     try {
+// //         const query = req.query.query;
+        
+// //         const products = await ProductDetails.find({ 
+// //             name: { $regex: new RegExp(query, "i") } 
+// //         });
+
+// //         if (products.length > 0) {
+// //             res.render('index', { products });
+// //         } else {
+// //             res.render('index', { error: 'No products found. Please try searching again.' });
+// //         }
+// //     } catch (error) {
+// //         console.error('Error during product search:', error);
+// //         res.status(500).send('Internal Server Error');
+// //     }
+// // });
+
+// // app.get('/api/requirements', async (req, res) => {
+// //     try {
+// //         const requirements = await Requirement.find().populate('user').sort({ createdAt: -1 });
+// //         res.render('requirements', { requirements, isLoggedIn: req.session.isLoggedIn });
+// //     } catch (error) {
+// //         console.error('Error fetching requirements:', error);
+// //         res.status(500).send('Internal Server Error');
+// //     }
+// // });
+
+// // // Add a new requirement
+// // app.post('/add-requirements', async (req, res) => {
+// //     try {
+// //         const { title, description } = req.body;
+// //         const userId = req.session.userId; // Assume user is logged in
+
+// //         if (!userId) {
+// //             return res.status(401).send("Unauthorized: User not logged in");
+// //         }
+
+// //         const newRequirement = new Requirement({
+// //             title,
+// //             description,
+// //             user: userId
+// //         });
+
+// //         await newRequirement.save();
+// //         res.redirect('/requirements');
+// //     } catch (error) {
+// //         console.error("Error adding requirement:", error);
+// //         res.status(500).send("Internal Server Error");
+// //     }
+// // });
+
+
+
+// // app.get('/buy', async (req, res) => {
+// //     try {
+// //         const categories = await ProductDetails.distinct('category'); // Get all unique categories
+// //         res.render('buy', { categories });
+// //     } catch (error) {
+// //         console.error("Error rendering buy page:", error);
+// //         res.status(500).send("Internal Server Error");
+// //     }
+// // });
+
+// // app.listen(port, () => {
+// //     console.log(`Server is running on port ${port}`);
+// // });
+// // // ye meri app.js file me toh sirf itna chahti hu ki jab koi bhi signup kare with role as admin then otp verification ka baad wo directly admin-dashboard par redirect ho or jiska role user hai wo directly dashboard par redirect ho simple itna ky rocket science h ki ho hi nhi raha h tumko sirf itna karna h 
+
+
+
+
+// // Handle signup form submission
+// // Handle signup form submission
+// app.post("/signup", async (req, res) => {
+//     try {
+//         const { fullname, email, phone, password, role } = req.body; // Added 'role'
+
+//         // Check if role is provided, default to 'user' if not
+//         const userRole = role || 'user'; 
+
+//         // Generate OTP for email verification
+//         const otp = generateOTP();
+
+//         // Create a new user with the role
+//         const newUser = new UserDetails({ fullname, email, phone, password, role: userRole, otp });
+
+//         // Save the user details in the database
+//         await newUser.save();
+
+//         // Send OTP to the user's email
+//         await sendOTPByEmail(email, otp);
+
+//         // Redirect user to the OTP verification page
+//         res.redirect(`/otp?userId=${newUser._id}`);
+//     } catch (error) {
+//         console.error("Error during signup:", error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
+
+// app.post("/otp", async (req, res) => {
+//     try {
+//         const { email, otp } = req.body;
+
+//         // Verify OTP (compare with stored OTP)
+//         const user = await UserDetails.findOne({ email });
+//         if (!user) {
+//             return res.render("otp", { error: "Invalid OTP" });
+//         }
+
+//         // Check if the entered OTP matches the stored OTP
+//         if (user.otp !== otp) {
+//             return res.render("otp", { error: "Invalid OTP" });
+//         }
+
+//         // Update user status to indicate email verification
+//         user.isEmailVerified = true;
+//         await user.save();
+
+//         // Set session variable
+//         req.session.isLoggedIn = true;
+//         req.session.userId = user._id;
+
+//         // Check the user's role and redirect accordingly
+//         if (user.role === 'admin') {
+//             return res.redirect("/admin-dashboard");
+//         } else {
+//             return res.redirect("/dashboard");
+//         }
+//     } catch (error) {
+//         console.error("Error during OTP verification:", error);
+//         res.status(500).send("Internal Server Error");
+//     }
+// });
+
+
+
+{/* <header class="container header nav-1">
+
+<nav class="nav">
+    <div class="logo">
+        <h2>DealOye.</h2>
+    </div>
+
+    <div class="nav_menu" id="nav_menu">
+        <button class="close_btn" id="close_btn">
+            <i class="ri-close-fill"></i>
+        </button>
+
+        <ul class="nav_menu_list">
+            <li class="nav_menu_item">
+                <a href="/" class="nav_menu_link">Home</a>
+            </li>
+            <li class="nav_menu_item">
+                <a href="/buy" class="nav_menu_link">Buy</a>
+            </li>
+            <li class="nav_menu_item"></li>
+                <a href="/sell" class="nav_menu_link">Sell</a>
+            </li>
+            <li class="nav_menu_item"></li>
+                <a href="/requirements" class="nav_menu_link">Requirements</a>
+            </li>
+            {{#if isLoggedIn}}
+             <li class="nav_menu_item"></li>
+                <a href="/postad" class="nav_menu_link" style="background-color: #335eea; padding: 5px 20px; border-radius: 10px; color:#fff;">POST</a>
+            </li>
+            <li class="nav_menu_item profile_menu">
+                <a href="/dashboard"> Dashboard{{user.fullname}}
+                </a>
+            </li>
+            {{else}}
+            <li class="nav_menu_item">
+                <a href="/login" class="nav_menu_link" id="login_btn">Login</a>
+            </li>
+            <li class="nav_menu_item">
+                <a href="/signup" class="nav_menu_link">Signup</a>
+            </li>
+            {{/if}}
+        </ul>
+    </div>
+
+    <button class="toggle_btn" id="toggle_btn">
+        <i class="ri-menu-line"></i>
+    </button>
+</nav>
+</header> */}

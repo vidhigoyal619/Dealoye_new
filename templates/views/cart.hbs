@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <link rel="stylesheet" href="/css/products.css">
+    {{!-- <link rel="stylesheet" href="/css/index.css"> --}}
+    <link rel="stylesheet" href="/css/nav.css">
+     <link href="/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+    <div class="container-fluid">
+      <!-- Project name on the left -->
+      <a class="navbar-brand text-white" href="/">DealOye</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Add ms-auto to shift the links to the right -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <!-- Navigation Links -->
+          <li class="nav-item">
+            <a class="nav-link text-white active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/sell">Sell</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/buy">Buy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/requirements">Requirements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/wishlist">Wishlist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/dashboard">Dashboard</a>
+          </li>
+          <li class="nav-item"></li>
+          <a class="nav-link text-white" href="/cart">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/signup">Signup</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+     <!-- ==== MAIN CART CONTENT ==== -->
+    <main>
+        <h1 style="margin: 1rem 0rem;">Shopping Cart</h1>
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="cart-container">
+                <!-- Cart items will be injected here by JavaScript -->
+            </tbody>
+        </table>
+        <div class="cart-summary">
+        <p>Total: <span id="cart-total">Rs0.00</span></p>
+    </div>
+    </main>
+<!-- Footer -->
+<footer class="footer mt-auto py-3 bg-dark text-white text-center sticky-footer">
+    <div class="container">
+        <span>&copy; 2024 DealOye. All rights reserved.</span>
+    </div>
+</footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const response = await fetch('/api/cart');
+        const cart = await response.json();
+        const cartContainer = document.getElementById('cart-container');
+        const cartTotalElement = document.getElementById('cart-total');
+        let cartTotal = 0;
+
+        // Populate the cart items in the table body
+        cartContainer.innerHTML = cart.products.map(product => {
+            const subtotal = product.price * product.quantity;
+            cartTotal += subtotal;
+
+            return `
+                <tr class="cart-item" data-product-id="${product._id}">
+                    <td class="remove-cell">
+                        <button class="remove-btn" data-product-id="${product._id}">&times;</button>
+                    </td>
+                    <td class="product-cell">
+                        <div class="product-image">
+                            <img src="${product.image}" alt="${product.name}">
+                        </div>
+                        <div class="product-info">
+                            <h2>${product.name}</h2>
+                        </div>
+                    </td>
+                    <td class="price-cell">Rs${product.price}</td>
+                    <td class="quantity-cell">
+                        <input type="number" class="quantity-input" name="quantity" value="${product.quantity}" min="1">
+                    </td>
+                    <td class="subtotal-cell">Rs${subtotal.toFixed(2)}</td>
+                </tr>
+            `;
+        }).join('');
+
+        // Update the total amount
+        cartTotalElement.textContent = `Rs${cartTotal.toFixed(2)}`;
+
+        // Attach event listeners to quantity inputs
+        document.querySelectorAll('.quantity-input').forEach(input => {
+            input.addEventListener('change', async (event) => {
+                const productId = event.target.closest('.cart-item').dataset.productId;
+                const newQuantity = parseInt(event.target.value, 10);
+
+                // Update subtotal for this product
+                const priceCell = event.target.closest('.cart-item').querySelector('.price-cell');
+                const subtotalCell = event.target.closest('.cart-item').querySelector('.subtotal-cell');
+                const price = parseFloat(priceCell.textContent.replace('€', ''));
+
+                const newSubtotal = (price * newQuantity).toFixed(2);
+                subtotalCell.textContent = `Rs${newSubtotal}`;
+
+                // Recalculate total
+                cartTotal = 0;
+                document.querySelectorAll('.subtotal-cell').forEach(subtotalElement => {
+                    cartTotal += parseFloat(subtotalElement.textContent.replace('€', ''));
+                });
+
+                // Update the total in the UI
+                cartTotalElement.textContent = `Rs${cartTotal.toFixed(2)}`;
+
+                try {
+                    // Optionally update the quantity in the database as well
+                    await fetch('/api/cart/update', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ productId, quantity: newQuantity }),
+                    });
+                } catch (error) {
+                    console.error('Error updating product quantity:', error);
+                }
+            });
+        });
+
+        // Attach event listeners to remove buttons
+        document.querySelectorAll('.remove-btn').forEach(button => {
+            button.addEventListener('click', async (event) => {
+                const productId = event.target.dataset.productId;
+                try {
+                    await fetch('/api/cart/remove', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ productId }),
+                    });
+                    alert('Product removed from cart!');
+                    window.location.reload(); // Reload to reflect changes
+                } catch (error) {
+                    console.error('Error removing product from cart:', error);
+                }
+            });
+        });
+
+        // Attach event listener to checkout button
+        const checkoutButton = document.getElementById('checkout-btn');
+        checkoutButton.addEventListener('click', () => {
+            window.location.href = '/checkout'; // Redirect to checkout page
+        });
+
+    } catch (error) {
+        console.error('Error fetching cart:', error);
+    }
+});
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealOye | Login</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/login-signup.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" />
+  <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
+  <style>
+    body::before {
+      content: "Acropolis";
+      /* Replace with your name */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 4rem;
+      /* Adjust size as needed */
+      color: rgba(0, 0, 0, 0.1);
+      /* Light color for watermark effect */
+      z-index: -1;
+      /* Keep it behind the content */
+      pointer-events: none;
+      /* Prevent interactions */
+      user-select: none;
+      /* Prevent text selection */
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container1">
+    <div class="wrapper">
+      <div class="title"><span style="color:#fff;">Login Form</span></div>
+      <form id="loginForm" action="/login" method="POST">
+        <div class="row">
+          <i class="fas fa-user"></i>
+          <input type="text" placeholder="Email" required name="email">
+        </div>
+        <div class="row">
+          <i class="fas fa-lock"></i>
+          <input type="password" placeholder="Password" required name="password">
+        </div>
+        <div class="pass"><a href="#" style="color:rgb(3, 181, 86);">Forgot password?</a></div>
+        <div class="row button">
+          <input type="submit" value="Login">
+        </div>
+        <div class="signup-link" style="color:rgb(0, 8, 4);">Not a member? <a href="/signup"
+            style="color:rgb(3, 181, 86);">Signup now</a></div>
+      </form>
+    </div>
+  </div>
+</body>
+<script>
+  const navId = document.getElementById("nav_menu"),
+    ToggleBtnId = document.getElementById("toggle_btn"),
+    CloseBtnId = document.getElementById("close_btn");
+
+  // ==== SHOW MENU ==== //
+  ToggleBtnId.addEventListener("click", () => {
+    navId.classList.add("show");
+  });
+
+  // ==== HIDE MENU ==== //
+  CloseBtnId.addEventListener("click", () => {
+    navId.classList.remove("show");
+  });
+</script>
+
+</html>

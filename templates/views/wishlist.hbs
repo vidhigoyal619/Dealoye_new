@@ -1,0 +1,230 @@
+<!-- wishlist.hbs (in views folder) -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Wishlist</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/nav.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- ==== ANIMATE ON SCROLL CSS CDN  ==== -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <script src="/js/index.js" defer></script>
+
+    <style>
+        .card {
+            width: 18rem;
+        }
+
+        .card-img-top {
+            height: 150px;
+            object-fit: cover;
+            padding: 20px 20px;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+        }
+
+        .card-text {
+            font-size: 0.875rem;
+        }
+        .buy-h1{
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .product-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.product-detail {
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.product-detail strong {
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+.product-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.wishlist-btn, .contact-btn {
+    padding: 8px 16px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+    display: inline-flex;
+    align-items: center;
+}
+
+.wishlist-btn i, .contact-btn i {
+    margin-right: 5px;
+}
+
+.wishlist-btn:hover, .contact-btn:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.btn-outline-primary {
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.btn-outline-primary:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.card-img-top {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+    </style>
+</head>
+
+<body>
+     <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+  <div class="container-fluid">
+    <!-- Project name on the left -->
+    <a class="navbar-brand text-white" href="/">DealOye</a>
+    
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- Add ms-auto to shift the links to the right -->
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Navigation Links -->
+        <li class="nav-item">
+          <a class="nav-link text-white active" aria-current="page" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/sell">Sell</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/buy">Buy</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/requirements">Requirements</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/wishlist">Wishlist</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/dashboard">Dashboard</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/login">Login</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white" href="/signup">Signup</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+    <div class="container mt-5">
+        <h1 class="mb-4 buy-h1"><i class="fa-solid fa-hand-holding-heart" style="color: #335eea; padding-right: 5px;"></i>Your Wishlist</h1>
+
+        <div class="row">
+            {{#if products.length}}
+                {{#each products}}
+                <div class="col-md-4 mb-4 d-flex justify-content-center">
+                    <div class="card h-100">
+                        <img src="/{{this.productId.images.[0]}}" class="card-img-top" alt="{{this.productId.name}}">
+                        <div class="card-body">
+                            <h5 class="card-title"><strong>{{this.productId.name}}</strong></h5>
+                            <p class="card-text"><strong>Price:</strong> ₹{{this.productId.price}}</p>
+                            <p class="card-text"><strong>Condition:</strong> {{this.productId.condition}}</p>
+                            <p class="card-text"><strong>Description:</strong> {{this.productId.description}}</p>
+                            <button class="btn btn-outline-danger remove-wishlist-btn" data-product-id="{{this.productId._id}}" title="Remove from Wishlist">
+                                <i class="fas fa-trash"></i> Remove from Wishlist
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            {{else}}
+                <p class="text-center">Your wishlist is empty.</p>
+            {{/if}}
+        </div>
+    </div>
+
+    <script>
+        // Function to remove a product from the wishlist
+        async function removeFromWishlist(productId) {
+            try {
+                const response = await fetch(`/wishlist/remove`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ productId })
+                });
+
+                if (response.ok) {
+                    alert('Product removed from wishlist');
+                    location.reload(); // Reload the page to update the wishlist
+                } else {
+                    alert('Error removing product from wishlist');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Add event listeners to all remove buttons
+        document.querySelectorAll('.remove-wishlist-btn').forEach(button => {
+            button.addEventListener('click', async (e) => {
+                const productId = e.target.closest('button').getAttribute('data-product-id');
+                await removeFromWishlist(productId);
+            });
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- ==== ANIMATE ON SCROLL JS CDN -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <!-- ==== GSAP CDN ==== -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+</body>
+
+</html>

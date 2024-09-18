@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DealOye | Requirements</title>
+  <link rel="stylesheet" href="node_modules\bootstrap\dist\css\bootstrap.min.css">
+  <link rel="stylesheet" href="/css/nav.css">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- ==== ANIMATE ON SCROLL CSS CDN  ==== -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <script src="/js/index.js" defer></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+    <div class="container-fluid">
+      <!-- Project name on the left -->
+      <a class="navbar-brand text-white" href="/">DealOye</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Add ms-auto to shift the links to the right -->
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <!-- Navigation Links -->
+          <li class="nav-item">
+            <a class="nav-link text-white active" aria-current="page" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/sell">Sell</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/buy">Buy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/requirements">Requirements</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/wishlist">Wishlist</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/dashboard">Dashboard</a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/login">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="/signup">Signup</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container mt-5">
+    <h2 class="mb-4"><i class="fa-solid fa-clipboard-list" style="color: #335eea; padding-right: 5px;"></i> Requirements
+    </h2>
+    <div class="row" id="requirementsContainer"></div>
+    <!-- Requirements will be loaded here dynamically -->
+    </div>
+
+    <!-- Plus Button -->
+    <button type="button" class="btn btn-primary btn-lg rounded-circle" data-bs-toggle="modal"
+      data-bs-target="#addRequirementModal" style="position: fixed; bottom: 80px; right: 20px; width: 50px">
+      +
+    </button>
+
+    <!-- Add Requirement Modal -->
+    <div class="modal fade" id="addRequirementModal" tabindex="-1" aria-labelledby="addRequirementModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addRequirementModalLabel">Add Requirement</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/add-requirements" method="POST">
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="title" required>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+ 
+</body>
+<script src="node_modules\bootstrap\dist\js\bootstrap.js"></script>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+<!-- ==== ANIMATE ON SCROLL JS CDN -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<!-- ==== GSAP CDN ==== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Fetch requirements data from the server
+  async function fetchRequirements() {
+    try {
+      const response = await fetch('/api/user-requirements'); // Replace with your API endpoint
+      if (!response.ok) throw new Error('Network response was not ok');
+      const requirements = await response.json();
+
+      // Get the container element
+      const container = document.getElementById('requirementsContainer');
+
+      // Clear the container before appending new content
+      container.innerHTML = '';
+
+      // Generate HTML for each requirement
+      requirements.forEach(requirement => {
+        const cardHTML = `
+            <div class="col-md-4">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <h5 class="card-title">${requirement.title}</h5>
+                  <p class="card-text">${requirement.description}</p>
+                  <small class="text-muted">Posted by: ${requirement.user.fullname}</small>
+                  <button class="btn btn-primary mt-3" data-bs-toggle="modal" data-bs-target="#contactModal${requirement._id}">
+                    Contact
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Contact Modal -->
+            <div class="modal fade" id="contactModal${requirement._id}" tabindex="-1" aria-labelledby="contactModalLabel${requirement._id}" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel${requirement._id}">Contact Information</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p><strong>Name:</strong> ${requirement.user.fullname}</p>
+                    <p><strong>Email:</strong> ${requirement.user.email}</p>
+                    <p><strong>Phone:</strong> ${requirement.user.phone}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          `;
+        container.insertAdjacentHTML('beforeend', cardHTML);
+      });
+    } catch (error) {
+      console.error('Error fetching requirements:', error);
+    }
+  };
+
+  // Call the function to fetch and display requirements when the page loads
+  document.addEventListener('DOMContentLoaded', fetchRequirements);
+
+</script>
+
+<!-- ==== SCRIPT.JS ==== -->
+
+</html>

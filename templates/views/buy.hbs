@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buy Products</title>
+    <link rel="stylesheet" href="/css/nav.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet"/>
+    <script src="/js/index.js" defer></script>
+    
+    <style>
+        /* Custom styles for smaller cards */
+        .card {
+            width: 18rem;
+        }
+
+        .card-img-top {
+            height: 150px;
+            object-fit: cover;
+            padding: 20px 20px;
+        }
+
+        .card-body {
+            padding: 10px;
+        }
+
+        .card-title {
+            font-size: 1rem;
+        }
+
+        .card-text {
+            font-size: 0.875rem;
+        }
+
+        .buy-h1 {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .product-card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .product-detail {
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .product-detail strong {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .product-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .wishlist-btn, .contact-btn, .chat-btn {
+            padding: 8px 16px;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .wishlist-btn i, .contact-btn i, .chat-btn i {
+            margin-right: 5px;
+        }
+
+        .wishlist-btn:hover, .contact-btn:hover, .chat-btn:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-outline-primary {
+            border-color: #007bff;
+            color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .card-img-top {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand text-white" href="/">DealOye</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link text-white active" aria-current="page" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/sell">Sell</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/buy">Buy</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/requirements">Requirements</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/wishlist">Wishlist</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/dashboard">Dashboard</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="/signup">Signup</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h1 class="mb-4 buy-h1"><i class="fa-solid fa-cart-shopping" style="color: #335eea; padding-right: 5px;"></i> Buy Products</h1>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <select id="categoryDropdown" class="form-select">
+                    <option value="Any">Any</option>
+                    <option value="Books">Books</option>
+                    <option value="Fashion">Fashion</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Craft Supplies">Craft Supplies</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Stationery">Stationery</option>
+                    <option value="Art Supplies">Art Supplies</option>
+                    {{#each categories}}
+                    <option value="{{this}}">{{this}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="col-md-6">
+                <input type="text" id="searchInput" class="form-control" placeholder="Find Text Books, Novels, Electronics and more">
+            </div>
+            <div class="col-md-2">
+                <button id="searchBtn" class="btn btn-primary w-100">Search</button>
+            </div>
+        </div>
+
+        <div id="productResults" class="row">
+            <!-- Product Cards will be rendered here -->
+        </div>
+    </div>
+
+    <!-- Contact Details Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" aria-labelledby="contactModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contactModalLabel">Contact Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Owner:</strong> <span id="modalOwnerName"></span></p>
+                    <p><strong>Contact:</strong> <span id="modalContactInfo"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+<footer class="footer mt-auto py-3 bg-dark text-white text-center sticky-footer">
+    <div class="container">
+        <span>&copy; 2024 DealOye. All rights reserved.</span>
+    </div>
+</footer>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Re-fetch products on search
+            document.getElementById('searchBtn').addEventListener('click', fetchProducts);
+
+            // Initial fetch on page load
+            fetchProducts();
+        });
+
+        async function fetchProducts() {
+            const category = document.getElementById('categoryDropdown').value;
+            const searchQuery = document.getElementById('searchInput').value;
+
+            const response = await fetch(`/api/products?category=${encodeURIComponent(category)}&query=${encodeURIComponent(searchQuery)}`);
+            const products = await response.json();
+
+            const productResultsDiv = document.getElementById('productResults');
+            productResultsDiv.innerHTML = '';
+
+            if (products.length === 0) {
+                productResultsDiv.innerHTML = '<p class="text-center">No results found</p>';
+                return;
+            }
+
+            products.forEach(product => {
+                const productCard = `
+                <div class="col-md-4 mb-4 d-flex justify-content-center">
+                    <div class="card h-100 product-card">
+                        <img src="/${product.images[0]}" class="card-img-top" alt="${product.name}">
+                        <div class="card-body">
+                            <h5 class="card-title product-title">${product.name}</h5>
+                            <p class="product-detail"><strong>Price:</strong> ₹${product.price}</p>
+                            <p class="product-detail"><strong>Condition:</strong> ${product.condition}</p>
+                            <p class="product-detail"><strong>Description:</strong> ${product.description}</p>
+                            <div class="product-buttons">
+                                <button class="btn btn-outline-primary wishlist-btn" data-product-id="${product._id}" title="Add to Wishlist">
+                                    <i class="fas fa-heart"></i> Wishlist
+                                </button>
+                                <button class="btn btn-outline-primary contact-btn" data-product-id="${product._id}" title="Contact">
+                                    <i class="fas fa-phone"></i> Contact
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>`;
+                productResultsDiv.innerHTML += productCard;
+            });
+
+            // Bind event listeners for wishlist, contact, and chat buttons after rendering
+            document.querySelectorAll('.wishlist-btn').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    const productId = e.target.closest('button').getAttribute('data-product-id');
+                    await addToWishlist(productId);
+                });
+            });
+
+            document.querySelectorAll('.contact-btn').forEach(button => {
+                button.addEventListener('click', async (e) => {
+                    const productId = e.target.closest('button').getAttribute('data-product-id');
+                    await fetchContactDetails(productId);
+                });
+            });
+        }
+
+        async function fetchContactDetails(productId) {
+            try {
+                const response = await fetch(`/api/products/${productId}`);
+                if (!response.ok) {
+                    alert('Error fetching contact details');
+                    return;
+                }
+
+                const product = await response.json();
+
+                // Check if the product object contains the necessary details
+                if (product && product.contact) {
+                    // Populate modal with contact details
+                    document.getElementById('modalOwnerName').textContent = product.contact;
+                    document.getElementById('modalContactInfo').textContent = product.contact;
+
+                    // Show the modal
+                    const contactModal = new bootstrap.Modal(document.getElementById('contactModal'));
+                    contactModal.show();
+                } else {
+                    alert('Contact details not found');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        async function fetchSellerDetails(productId) {
+            try {
+                const response = await fetch(`/api/products/${productId}`);
+                if (!response.ok) {
+                    alert('Error fetching seller details');
+                    return;
+                }
+
+                const product = await response.json();
+                if (product && product.contact) {
+                    document.getElementById('modalSellerName').textContent = product.contact;
+                    const chatModal = new bootstrap.Modal(document.getElementById('chatModal'));
+                    chatModal.show();
+                } else {
+                    alert('Seller details not found');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+
+</html>
