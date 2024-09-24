@@ -1,6 +1,6 @@
 # Dealoye
 
-![Dealoye Logo](public/images/DealOye(5).png)
+![Dealoye Logo](https://github.com/vidhigoyal619/Dealoye_new/blob/main/public/images/DealOye%20(5).png)
 
 
 **Dealoye** is a web application designed for college students to facilitate the exchange of goods and requirements within their community. Users can post their requirements, sell items, and browse various listings, making college life easier and more connected.
@@ -85,10 +85,10 @@ This project is licensed under the MIT License.
 Feel free to adjust any wording or sections as per your project's needs! Let me know if you need further modifications.
 
 ## Synopsis
-You can view the project synopsis [here](./path/to/your/presentation.ppt).
+You can view the project synopsis [here](https://github.com/vidhigoyal619/Dealoye_new/blob/main/Major%20Project%207th%20sem/Major%20Project%20Synopsis.pdf).
 
 ## Presentation
-You can view the project presentation [here](./path/to/your/presentation.ppt).
+You can view the project presentation [here](https://github.com/vidhigoyal619/Dealoye_new/blob/main/Major%20Project%207th%20sem/Major-Phase1.pptx).
 
 
 
