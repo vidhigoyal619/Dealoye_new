@@ -8,7 +8,6 @@
 ## Table of Contents
 
 - [Features](#features)
-- [Screenshots](#screenshots)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -27,11 +26,6 @@
 - **Requirements Board**: Users can post their requirements and connect with others.
 - **Dashboard**: Manage wishlist, sold items, and posted requirements.
 - **Admin Panel**: Admin features to manage listings and user accounts.
-
-## Screenshots
-![Dealoye](https://github.com/vidhigoyal619/Quotiverse/blob/main/Screenshot%202024-05-08%20014625.png)
-![Dealoye](https://github.com/vidhigoyal619/Quotiverse/blob/main/Screenshot%202024-05-08%20014725.png)
-![Dealoye](https://github.com/vidhigoyal619/Quotiverse/blob/main/Screenshot%202024-05-08%20014757.png)
 
 ## Tech Stack
 
