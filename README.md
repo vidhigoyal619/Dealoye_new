@@ -1,12 +1,14 @@
 # Dealoye
 
-![Dealoye Logo](public/images/DealOye(5).png) <!-- Replace with actual logo image if available -->
+![Dealoye Logo](public/images/DealOye(5).png)
+
 
 **Dealoye** is a web application designed for college students to facilitate the exchange of goods and requirements within their community. Users can post their requirements, sell items, and browse various listings, making college life easier and more connected.
 
 ## Table of Contents
 
 - [Features](#features)
+- [Screenshots](#screenshots)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -14,6 +16,9 @@
 - [Deployment](#deployment)
 - [Contributing](#contributing)
 - [License](#license)
+- [Synopsis](#synopsis)
+- [Presentation](#presentation)
+
 
 ## Features
 
@@ -22,6 +27,11 @@
 - **Requirements Board**: Users can post their requirements and connect with others.
 - **Dashboard**: Manage wishlist, sold items, and posted requirements.
 - **Admin Panel**: Admin features to manage listings and user accounts.
+
+## Screenshots
+![Dealoye](https://github.com/vidhigoyal619/Quotiverse/blob/main/Screenshot%202024-05-08%20014625.png)
+![Dealoye](https://github.com/vidhigoyal619/Quotiverse/blob/main/Screenshot%202024-05-08%20014725.png)
+![Dealoye](https://github.com/vidhigoyal619/Quotiverse/blob/main/Screenshot%202024-05-08%20014757.png)
 
 ## Tech Stack
 
@@ -73,3 +83,12 @@ This project is licensed under the MIT License.
 - Add any additional sections you think might be useful, such as FAQs or known issues.
 
 Feel free to adjust any wording or sections as per your project's needs! Let me know if you need further modifications.
+
+## Synopsis
+You can view the project synopsis [here](./path/to/your/presentation.ppt).
+
+## Presentation
+You can view the project presentation [here](./path/to/your/presentation.ppt).
+
+
+
