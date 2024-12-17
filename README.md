@@ -17,6 +17,8 @@
 - [License](#license)
 - [Synopsis](#synopsis)
 - [Presentation](#presentation)
+- [Demo](#demo)
+
 
 
 ## Features
@@ -84,5 +86,5 @@ You can view the project synopsis [here](https://github.com/vidhigoyal619/Dealoy
 ## Presentation
 You can view the project presentation [here](https://github.com/vidhigoyal619/Dealoye_new/blob/main/Major%20Project%207th%20sem/Major-Phase1.pptx).
 
-
-
+## Demo
+You can view the project demonstration [here](https://drive.google.com/file/d/1WJ97Kgqw1LEDF1Cqb_2awhph2oF9vWIC/view?usp=drive_link).
