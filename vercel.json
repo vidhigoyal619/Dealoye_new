@@ -1,21 +1,15 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "src/app.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "src/app.js"
-      }
-    ],
-    "env": {
-      "PORT": "3001",           
-      "MONGO_URI": "mongodb+srv://vidhigoyal619:qO7apOSxbnmT3SEI@cluster0.avt31no.mongodb.net/test?retryWrites=true&w=majority&appName=Cluster0", 
-      "SECRET": "df1eaea09f8b0fd37a36f1f33cddee5b38ceaf1be4d05b194cbfec5363c88f28"        
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/app.js",
+      "use": "@vercel/node"
     }
-  }
-  
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/app.js"
+    }
+  ]
+}
